@@ -334,7 +334,7 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
 //===============================================
 
 - (void)textFieldEditingChanged:(UITextField *)textField {
-    
+    //
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
