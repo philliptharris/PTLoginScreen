@@ -14,13 +14,13 @@
 		111F8DEB19E81D6700B843FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 111F8DEA19E81D6700B843FF /* main.m */; };
 		111F8DEF19E81D6700B843FF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 111F8DEE19E81D6700B843FF /* AppDelegate.m */; };
 		111F8DF219E81D6700B843FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 111F8DF019E81D6700B843FF /* Main.storyboard */; };
-		111F8DF519E81D6700B843FF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 111F8DF419E81D6700B843FF /* ViewController.m */; };
 		111F8DF719E81D6700B843FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 111F8DF619E81D6700B843FF /* Images.xcassets */; };
 		111F8DFE19E81D6700B843FF /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 111F8DFD19E81D6700B843FF /* XCTest.framework */; };
 		111F8DFF19E81D6700B843FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 111F8DDE19E81D6700B843FF /* Foundation.framework */; };
 		111F8E0019E81D6700B843FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 111F8DE219E81D6700B843FF /* UIKit.framework */; };
 		111F8E0819E81D6700B843FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 111F8E0619E81D6700B843FF /* InfoPlist.strings */; };
 		111F8E0A19E81D6700B843FF /* PTLoginExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 111F8E0919E81D6700B843FF /* PTLoginExampleTests.m */; };
+		111F8E1519E81DA600B843FF /* PTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 111F8E1419E81DA600B843FF /* PTLoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +45,14 @@
 		111F8DED19E81D6700B843FF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		111F8DEE19E81D6700B843FF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		111F8DF119E81D6700B843FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		111F8DF319E81D6700B843FF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		111F8DF419E81D6700B843FF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		111F8DF619E81D6700B843FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		111F8DFC19E81D6700B843FF /* PTLoginExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PTLoginExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		111F8DFD19E81D6700B843FF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		111F8E0519E81D6700B843FF /* PTLoginExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PTLoginExampleTests-Info.plist"; sourceTree = "<group>"; };
 		111F8E0719E81D6700B843FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		111F8E0919E81D6700B843FF /* PTLoginExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PTLoginExampleTests.m; sourceTree = "<group>"; };
+		111F8E1319E81DA600B843FF /* PTLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTLoginViewController.h; sourceTree = "<group>"; };
+		111F8E1419E81DA600B843FF /* PTLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTLoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,8 +115,8 @@
 				111F8DED19E81D6700B843FF /* AppDelegate.h */,
 				111F8DEE19E81D6700B843FF /* AppDelegate.m */,
 				111F8DF019E81D6700B843FF /* Main.storyboard */,
-				111F8DF319E81D6700B843FF /* ViewController.h */,
-				111F8DF419E81D6700B843FF /* ViewController.m */,
+				111F8E1319E81DA600B843FF /* PTLoginViewController.h */,
+				111F8E1419E81DA600B843FF /* PTLoginViewController.m */,
 				111F8DF619E81D6700B843FF /* Images.xcassets */,
 				111F8DE519E81D6700B843FF /* Supporting Files */,
 			);
@@ -249,8 +249,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				111F8DF519E81D6700B843FF /* ViewController.m in Sources */,
 				111F8DEF19E81D6700B843FF /* AppDelegate.m in Sources */,
+				111F8E1519E81DA600B843FF /* PTLoginViewController.m in Sources */,
 				111F8DEB19E81D6700B843FF /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,6 +379,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PTLoginExample/PTLoginExample-Prefix.pch";
 				INFOPLIST_FILE = "PTLoginExample/PTLoginExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -392,6 +393,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PTLoginExample/PTLoginExample-Prefix.pch";
 				INFOPLIST_FILE = "PTLoginExample/PTLoginExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
