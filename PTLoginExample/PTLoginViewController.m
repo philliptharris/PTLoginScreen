@@ -61,7 +61,7 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     
     NSMutableArray *firstSection = [NSMutableArray array];
     [firstSection addObject:@(PTLoginCellTypeUsername)];
-    [firstSection addObject:@(PTLoginCellTypeEmail)];
+//    [firstSection addObject:@(PTLoginCellTypeEmail)];
     [firstSection addObject:@(PTLoginCellTypePassword)];
     [firstSection addObject:@(PTLoginCellTypeRememberMe)];
     
@@ -88,7 +88,7 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     
-//    tableView.backgroundColor = [UIColor purpleColor];
+//    self.tableView.backgroundColor = [UIColor purpleColor];
 //    self.tableView.rowHeight = 74.0;
 }
 
@@ -306,6 +306,7 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     }
     UISwitch *theSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
     [theSwitch sizeToFit];
+    [theSwitch addTarget:self action:@selector(rememberMeSwitchDidToggle:) forControlEvents:UIControlEventValueChanged];
     _rememberMeSwitch = theSwitch;
     return _rememberMeSwitch;
 }
@@ -398,6 +399,10 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     NSLog(@"Login");
 }
 
+- (void)rememberMeSwitchDidToggle:(UISwitch *)rememberMeSwitch {
+    NSLog(@"Toggle");
+}
+
 //===============================================
 #pragma mark -
 #pragma mark Table Header View
@@ -407,9 +412,17 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     if (_tableHeaderView) {
         return _tableHeaderView;
     }
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 0.0, 200.0)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
     view.backgroundColor = [UIColor clearColor];
-//    [view addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:100.0]];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sampleImage"]];
+    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [view addSubview:imageView];
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:imageView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+    [view addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:imageView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0]];
+    
+    view.frame = CGRectMake(0.0, 0.0, 0.0, CGRectGetHeight(imageView.bounds) + 30.0);
+    
     _tableHeaderView = view;
     return _tableHeaderView;
 }
