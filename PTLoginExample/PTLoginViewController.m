@@ -77,26 +77,24 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
 {
     [super viewDidLoad];
     
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    tableView.dataSource = self;
-    tableView.delegate = self;
+//    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+//    tableView.dataSource = self;
+//    tableView.delegate = self;
+//    tableView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.view addSubview:tableView];
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tableView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0.0]];
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tableView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:tableView attribute:NSLayoutAttributeRight multiplier:1.0 constant:0.0]];
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bottomLayoutGuide attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:tableView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
+//    self.tableView = tableView;
     
-    tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:tableView];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tableView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tableView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:tableView attribute:NSLayoutAttributeRight multiplier:1.0 constant:0.0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bottomLayoutGuide attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:tableView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellId"];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellId"];
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     
 //    tableView.backgroundColor = [UIColor purpleColor];
-    tableView.rowHeight = 54.0;
-    
-    self.tableView = tableView;
+    self.tableView.rowHeight = 74.0;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

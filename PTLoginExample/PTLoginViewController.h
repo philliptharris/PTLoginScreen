@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PTLoginViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface PTLoginViewController : UITableViewController // <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) UITableView *tableView;
+//@property (nonatomic, strong) UITableView *tableView;
 
 @end
