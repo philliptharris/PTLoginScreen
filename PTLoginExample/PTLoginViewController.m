@@ -12,6 +12,7 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     PTLoginCellTypeUsername,
     PTLoginCellTypeEmail,
     PTLoginCellTypePassword,
+    PTLoginCellTypeRememberMe,
     PTLoginCellTypeLoginButton
 };
 
@@ -24,6 +25,8 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
 @property (nonatomic, strong) UITextField *passwordTextField;
 
 @property (nonatomic, strong) UIView *tableHeaderView;
+
+@property (nonatomic, strong) UISwitch *rememberMeSwitch;
 
 @end
 
@@ -60,6 +63,7 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     [firstSection addObject:@(PTLoginCellTypeUsername)];
     [firstSection addObject:@(PTLoginCellTypeEmail)];
     [firstSection addObject:@(PTLoginCellTypePassword)];
+    [firstSection addObject:@(PTLoginCellTypeRememberMe)];
     
     NSMutableArray *secondSection = [NSMutableArray array];
     [secondSection addObject:@(PTLoginCellTypeLoginButton)];
@@ -77,16 +81,7 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
 {
     [super viewDidLoad];
     
-//    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-//    tableView.dataSource = self;
-//    tableView.delegate = self;
-//    tableView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [self.view addSubview:tableView];
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tableView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0.0]];
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tableView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:tableView attribute:NSLayoutAttributeRight multiplier:1.0 constant:0.0]];
-//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bottomLayoutGuide attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:tableView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
-//    self.tableView = tableView;
+    self.title = @"Login";
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellId"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -94,15 +89,32 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     
 //    tableView.backgroundColor = [UIColor purpleColor];
-    self.tableView.rowHeight = 74.0;
+//    self.tableView.rowHeight = 74.0;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSLog(@"%@", NSStringFromCGRect(self.view.frame));
-    
     self.tableView.tableHeaderView = self.tableHeaderView;
+}
+
+//===============================================
+#pragma mark -
+#pragma mark Add Table to UIViewController
+//===============================================
+
+- (void)addTable {
+    
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    tableView.dataSource = self;
+    tableView.delegate = self;
+    tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:tableView];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tableView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:tableView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.topLayoutGuide attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:tableView attribute:NSLayoutAttributeRight multiplier:1.0 constant:0.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bottomLayoutGuide attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:tableView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
+    self.tableView = tableView;
 }
 
 //===============================================
@@ -120,6 +132,8 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
             return @"password";
         case PTLoginCellTypeLoginButton:
             return @"loginButton";
+        case PTLoginCellTypeRememberMe:
+            return @"remeberMe";
         default:
             return @"default";
     }
@@ -190,6 +204,14 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
             UILabel *fakeButton = [self fakeButton];
             fakeButton.text = @"Login";
             [self addSubview:fakeButton toContentView:cell.contentView withEdgeInsets:UIEdgeInsetsMake(0.0, 15.0, 0.0, 15.0)];
+        }
+        else if (cellType == PTLoginCellTypeRememberMe) {
+            
+            cell.backgroundColor = [UIColor clearColor];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.accessoryView = self.rememberMeSwitch;
+            cell.textLabel.text = @"Remember Me";
         }
     }
     
@@ -275,13 +297,29 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
 
 //===============================================
 #pragma mark -
+#pragma mark Remember Me Switch
+//===============================================
+
+- (UISwitch *)rememberMeSwitch {
+    if (_rememberMeSwitch) {
+        return _rememberMeSwitch;
+    }
+    UISwitch *theSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+    [theSwitch sizeToFit];
+    _rememberMeSwitch = theSwitch;
+    return _rememberMeSwitch;
+}
+
+//===============================================
+#pragma mark -
 #pragma mark Fake Button
 //===============================================
 
 - (UILabel *)fakeButton {
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-    label.backgroundColor = [UIColor blueColor];
+    label.backgroundColor = [UIColor colorWithRed:0.0/255.0 green:122.0/255.0 blue:255.0/255.0 alpha:1.0];
     label.textColor = [UIColor whiteColor];
+    label.font = [UIFont boldSystemFontOfSize:18.0];
     label.textAlignment = NSTextAlignmentCenter;
     label.layer.cornerRadius = 4.0;
     label.layer.masksToBounds = YES;
@@ -369,8 +407,8 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     if (_tableHeaderView) {
         return _tableHeaderView;
     }
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 0.0, 100.0)];
-    view.backgroundColor = [UIColor purpleColor];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 0.0, 200.0)];
+    view.backgroundColor = [UIColor clearColor];
 //    [view addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:100.0]];
     _tableHeaderView = view;
     return _tableHeaderView;
