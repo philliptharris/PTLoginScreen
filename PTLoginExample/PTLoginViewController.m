@@ -63,7 +63,7 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     [firstSection addObject:@(PTLoginCellTypeUsername)];
 //    [firstSection addObject:@(PTLoginCellTypeEmail)];
     [firstSection addObject:@(PTLoginCellTypePassword)];
-    [firstSection addObject:@(PTLoginCellTypeRememberMe)];
+//    [firstSection addObject:@(PTLoginCellTypeRememberMe)];
     
     NSMutableArray *secondSection = [NSMutableArray array];
     [secondSection addObject:@(PTLoginCellTypeLoginButton)];
@@ -83,6 +83,7 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     
     self.title = @"Login";
     
+    self.tableView.rowHeight = 44.0;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellId"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
