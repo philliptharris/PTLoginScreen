@@ -12,8 +12,10 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     PTLoginCellTypeUsername,
     PTLoginCellTypeEmail,
     PTLoginCellTypePassword,
+    PTLoginCellTypeConfirmPassword,
     PTLoginCellTypeRememberMe,
-    PTLoginCellTypeLoginButton
+    PTLoginCellTypeLoginButton,
+    PTLoginCellTypeSignupButton
 };
 
 @interface PTLoginViewController () <UITextFieldDelegate>
@@ -23,6 +25,7 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
 @property (nonatomic, strong) UITextField *usernameTextField;
 @property (nonatomic, strong) UITextField *emailTextField;
 @property (nonatomic, strong) UITextField *passwordTextField;
+@property (nonatomic, strong) UITextField *confirmPasswordTextField;
 
 @property (nonatomic, strong) UIView *tableHeaderView;
 
@@ -58,18 +61,6 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
 - (void)commonInit {
     
     _cellTypesGroupedBySection = [NSMutableArray array];
-    
-    NSMutableArray *firstSection = [NSMutableArray array];
-    [firstSection addObject:@(PTLoginCellTypeUsername)];
-//    [firstSection addObject:@(PTLoginCellTypeEmail)];
-    [firstSection addObject:@(PTLoginCellTypePassword)];
-//    [firstSection addObject:@(PTLoginCellTypeRememberMe)];
-    
-    NSMutableArray *secondSection = [NSMutableArray array];
-    [secondSection addObject:@(PTLoginCellTypeLoginButton)];
-    
-    [_cellTypesGroupedBySection addObject:firstSection];
-    [_cellTypesGroupedBySection addObject:secondSection];
 }
 
 //===============================================
@@ -84,13 +75,10 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     self.title = @"Login";
     
     self.tableView.rowHeight = 44.0;
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellId"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     
-//    self.tableView.backgroundColor = [UIColor purpleColor];
-//    self.tableView.rowHeight = 74.0;
+    [self configureCells];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -99,6 +87,24 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
+- (void)configureCells {
+    
+    NSMutableArray *firstSection = [NSMutableArray array];
+    [firstSection addObject:@(PTLoginCellTypeUsername)];
+    [firstSection addObject:@(PTLoginCellTypePassword)];
+    
+    NSMutableArray *secondSection = [NSMutableArray array];
+    [secondSection addObject:@(PTLoginCellTypeLoginButton)];
+    
+    NSMutableArray *thirdSection = [NSMutableArray array];
+    [thirdSection addObject:@(PTLoginCellTypeSignupButton)];
+    
+    [self.cellTypesGroupedBySection addObject:firstSection];
+    [self.cellTypesGroupedBySection addObject:secondSection];
+    [self.cellTypesGroupedBySection addObject:thirdSection];
+}
+
+/*
 //===============================================
 #pragma mark -
 #pragma mark Add Table to UIViewController
@@ -117,7 +123,7 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.bottomLayoutGuide attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:tableView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0.0]];
     self.tableView = tableView;
 }
-
+*/
 //===============================================
 #pragma mark -
 #pragma mark Table Helpers
@@ -131,10 +137,14 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
             return @"username";
         case PTLoginCellTypePassword:
             return @"password";
+        case PTLoginCellTypeConfirmPassword:
+            return @"confirmPassword";
         case PTLoginCellTypeLoginButton:
             return @"loginButton";
         case PTLoginCellTypeRememberMe:
             return @"remeberMe";
+        case PTLoginCellTypeSignupButton:
+            return @"signup";
         default:
             return @"default";
     }
@@ -148,6 +158,9 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
             return self.usernameTextField;
         case PTLoginCellTypePassword:
             return self.passwordTextField;
+        case PTLoginCellTypeConfirmPassword:
+            return self.confirmPasswordTextField;
+        case PTLoginCellTypeSignupButton:
         case PTLoginCellTypeLoginButton:
             return nil;
         default:
@@ -168,13 +181,6 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     NSArray *rows = [self.cellTypesGroupedBySection objectAtIndex:section];
     return [rows count];
 }
-
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId" forIndexPath:indexPath];
-//    PTLoginCellType cellType = [[[self.cellTypesGroupedBySection objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] integerValue];
-//    cell.textLabel.text = [NSString stringWithFormat:@"%i", cellType];
-//    return cell;
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -206,6 +212,15 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
             fakeButton.text = @"Login";
             [self addSubview:fakeButton toContentView:cell.contentView withEdgeInsets:UIEdgeInsetsMake(0.0, 15.0, 0.0, 15.0)];
         }
+        else if (cellType == PTLoginCellTypeSignupButton) {
+            
+            cell.backgroundColor = [UIColor clearColor];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            UILabel *fakeButton = [self fakeButton];
+            fakeButton.text = @"Sign Up";
+            [self addSubview:fakeButton toContentView:cell.contentView withEdgeInsets:UIEdgeInsetsMake(0.0, 15.0, 0.0, 15.0)];
+        }
         else if (cellType == PTLoginCellTypeRememberMe) {
             
             cell.backgroundColor = [UIColor clearColor];
@@ -234,8 +249,14 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
         case PTLoginCellTypePassword:
             [self.passwordTextField becomeFirstResponder];
             break;
+        case PTLoginCellTypeConfirmPassword:
+            [self.confirmPasswordTextField becomeFirstResponder];
+            break;
         case PTLoginCellTypeLoginButton:
             [self login];
+            break;
+        case PTLoginCellTypeSignupButton:
+            [self signup];
             break;
         default:
             break;
@@ -282,6 +303,19 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
     textField.placeholder = @"Password";
     _passwordTextField = textField;
     return _passwordTextField;
+}
+
+- (UITextField *)confirmPasswordTextField {
+    if (_confirmPasswordTextField) {
+        return _confirmPasswordTextField;
+    }
+    UITextField *textField = [self defaultTextField];
+    textField.keyboardType = UIKeyboardTypeDefault;
+    textField.returnKeyType = UIReturnKeyGo;
+    textField.secureTextEntry = YES;
+    textField.placeholder = @"Confirm Password";
+    _confirmPasswordTextField = textField;
+    return _confirmPasswordTextField;
 }
 
 - (UITextField *)defaultTextField {
@@ -398,6 +432,10 @@ typedef NS_ENUM(NSInteger, PTLoginCellType) {
 
 - (void)login {
     NSLog(@"Login");
+}
+
+- (void)signup {
+    NSLog(@"Signup");
 }
 
 - (void)rememberMeSwitchDidToggle:(UISwitch *)rememberMeSwitch {
